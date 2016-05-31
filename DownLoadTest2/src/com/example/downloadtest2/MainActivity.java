@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
 	
-	private String TAG = MainActivity.class.getName();
+	private String TAG = "zhangjinqiang";
 	private TextView myTxt;
 	private ProgressBar mProgressBar;
 	private Button mButton;
@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		mProgressBar = (ProgressBar) findViewById(R.id.progress);
 		mButton =(Button)findViewById(R.id.button);
 		mButton.setOnClickListener(this);
+		Log.d(TAG,"onCreate");
 	}
 
 	@Override
@@ -66,6 +67,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		if(view.getId()==R.id.button){
+			Log.d(TAG,"doDownLoad");
 			doDownLoad();
 		}
 	}
@@ -77,11 +79,13 @@ public class MainActivity extends Activity implements OnClickListener{
 	 */
 	private void doDownLoad(){
 		//获取SD卡路径
-		String path = Environment.getExternalStorageDirectory()+"/amosdownLoad/";
+		String path = Environment.getDataDirectory()+"/test/";
+		Log.d(TAG,"path:"+path);
 		
 		File file = new File(path);
 		//如果SD卡目录下不存在该目录则创建
 		if(!file.exists()){
+			Log.d(TAG,"file.mkdir");
 			file.mkdir();
 		}
 		//初始化ProgressBar

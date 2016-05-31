@@ -10,7 +10,7 @@ import java.net.URLConnection;
 import android.util.Log;
 
 public class FileDownloadThread extends Thread{
-	private String TAG = FileDownloadThread.class.getName();
+	private String TAG = "zhangjinqiang";
 	
 	/**
 	 * 当前下载是否完成
@@ -66,6 +66,8 @@ public class FileDownloadThread extends Thread{
 			conn.setAllowUserInteraction(true);
 			int startPos = blockSize*(threadID-1);//开始位置
 			int endPos = blockSize*threadID-1;//结束位置
+			Log.d(TAG,"startPos:"+startPos);
+			Log.d(TAG,"endPos:"+endPos);
 			//设置当前线程下载的起点和终点
 			conn.setRequestProperty("Range", "bytes="+startPos+"-"+endPos);
 			
@@ -88,6 +90,7 @@ public class FileDownloadThread extends Thread{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Log.d(TAG,"IOException1");
 		}finally{
 			if(bis!=null){
 				try {
@@ -95,6 +98,7 @@ public class FileDownloadThread extends Thread{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					Log.d(TAG,"IOException2");
 				}
 			}
 			
@@ -104,6 +108,7 @@ public class FileDownloadThread extends Thread{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					Log.d(TAG,"IOException3");
 				}
 			}
 		}
