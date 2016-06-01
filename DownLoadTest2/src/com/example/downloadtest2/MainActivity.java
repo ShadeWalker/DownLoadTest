@@ -33,9 +33,13 @@ public class MainActivity extends Activity implements OnClickListener{
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			
-			mProgressBar.setProgress(msg.getData().getInt("size"));
+			Bundle data = msg.getData();
+			int downSize = data.getInt("size");
+			Log.d(TAG,"downSize:"+downSize);
+			mProgressBar.setProgress(downSize);
 			float temp = (float)mProgressBar.getProgress()/(float)mProgressBar.getMax();
 			int progress =(int)temp*100;
+			Log.d(TAG,"progress:"+progress);
 			if(progress ==100){
 				Toast.makeText(getApplicationContext(), "下载完成", Toast.LENGTH_SHORT);
 			}else{
@@ -79,7 +83,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	 */
 	private void doDownLoad(){
 		//获取SD卡路径
-		String path = Environment.getDataDirectory()+"/test/";
+		String path = Environment.getExternalStorageDirectory()+"/test/";
 		Log.d(TAG,"path:"+path);
 		
 		File file = new File(path);
@@ -163,7 +167,10 @@ public class MainActivity extends Activity implements OnClickListener{
 					
 					//通过Handler去更新视图组件
 					Message msg = new Message();
-					msg.getData().putInt("size", downLoadAllSize);
+					Bundle bundle = new Bundle();
+					bundle.putInt("size", downLoadAllSize);
+					msg.setData(bundle);
+					Log.d(TAG,"downLoadAllSize:"+downLoadAllSize);
 					mHandler.sendMessage(msg);
 					
 					Thread.sleep(1000);
