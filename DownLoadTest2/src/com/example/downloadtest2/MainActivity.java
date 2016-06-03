@@ -37,8 +37,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			int downSize = data.getInt("size");
 			Log.d(TAG,"downSize:"+downSize);
 			mProgressBar.setProgress(downSize);
-			float temp = (float)mProgressBar.getProgress()/(float)mProgressBar.getMax();
-			int progress =(int)temp*100;
+			double tempProgress = ((double)mProgressBar.getProgress())/mProgressBar.getMax();
+			Log.d(TAG,"getProgress:"+mProgressBar.getProgress());
+			Log.d(TAG,"getMax:"+mProgressBar.getMax());
+			Log.d(TAG,"tempProgress:"+tempProgress);
+			int progress = (int)(tempProgress*100);
 			Log.d(TAG,"progress:"+progress);
 			if(progress ==100){
 				Toast.makeText(getApplicationContext(), "下载完成", Toast.LENGTH_SHORT);
@@ -94,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 		//初始化ProgressBar
 		mProgressBar.setProgress(0);
+		//mProgressBar.setMax(11755026);
 		
 		//简单起见，先把URL和文件名写死，其实这些都是可以通过HttpReader来获取到
 		String downURL = "http://gdown.baidu.com/data/wisegame/91319a5a1dfae322/baidu_16785426.apk"; 
